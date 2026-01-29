@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running Pre-Commit Checks..."
+
+# Run lint-staged to auto-fix staged TS files
+yarn lint-staged
+
+# Optional: run typecheck
+# yarn tsc --noEmit
+
+echo "✔ Pre-commit checks passed!"

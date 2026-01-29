@@ -1,0 +1,52 @@
+########################################
+# Line Endings Normalization
+########################################
+* text=auto eol=lf
+
+# Scripts must always use LF (Linux servers)
+*.sh text eol=lf
+
+########################################
+# Code Files (Normalize to LF)
+########################################
+*.js   text eol=lf
+*.cjs  text eol=lf
+*.mjs  text eol=lf
+*.ts   text eol=lf
+*.tsx  text eol=lf
+
+########################################
+# Common Text Files
+########################################
+*.json text
+*.md   text
+*.env   text
+*.env.* text
+*.yml   text
+*.yaml  text
+
+########################################
+# Binary Files (No diff/merge)
+########################################
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.gz   binary
+*.mp4  binary
+*.mov  binary
+
+########################################
+# Lock Files – DO NOT normalize
+########################################
+package-lock.json -text
+yarn.lock        -text
+pnpm-lock.yaml   -text
+
+########################################
+# Improve diffing for Markdown
+########################################
+*.md text

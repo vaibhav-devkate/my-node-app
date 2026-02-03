@@ -3,10 +3,10 @@
 
 echo "🔍 Running Pre-Commit Checks..."
 
-# Run lint-staged to auto-fix staged TS files
+# Run lint-staged to auto-fix staged files
 yarn lint-staged
 
-# Optional: run typecheck
-# yarn tsc --noEmit
+# Run unit tests to ensure no regressions
+yarn test --passWithNoTests
 
 echo "✔ Pre-commit checks passed!"

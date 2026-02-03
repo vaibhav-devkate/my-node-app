@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Running Pre-Push Checks..."
+
+# Run full test suite before push
+yarn test --watchAll=false
+
+echo "✔ Pre-push checks passed!"

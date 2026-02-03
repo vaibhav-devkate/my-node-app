@@ -3,7 +3,7 @@ import validator from "validator";
 import bcrypt from "bcryptjs";
 import { toJSON, paginate } from "../../utils/plugins";
 import { roles } from "../../config/roles";
-import { IUserDoc, IUserModel } from "./user.interfaces";
+import type { IUserDoc, IUserModel } from "./user.interfaces";
 
 const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
   {
@@ -56,14 +56,12 @@ userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
 };
 
 userSchema.methods.isPasswordMatch = async function (password: string) {
-  const user = this;
-  return bcrypt.compare(password, user.password);
+  return bcrypt.compare(password, this.password);
 };
 
 userSchema.pre("save", async function () {
-  const user = this;
-  if (user.isModified("password") && user.password) {
-    user.password = await bcrypt.hash(user.password, 8);
+  if (this.isModified("password") && this.password) {
+    this.password = await bcrypt.hash(this.password, 8);
   }
 });
 

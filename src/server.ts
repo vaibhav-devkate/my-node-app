@@ -16,7 +16,10 @@ const exitHandler = (): void => {
   if (server) {
     server.close(() => {
       logger.info("Server closed");
-      process.exit(1);
+      mongoose.connection.close(false).then(() => {
+        logger.info("MongoDB connection closed");
+        process.exit(1);
+      });
     });
   } else {
     process.exit(1);
@@ -34,6 +37,26 @@ process.on("unhandledRejection", unexpectedErrorHandler);
 process.on("SIGTERM", () => {
   logger.info("SIGTERM received");
   if (server) {
-    server.close();
+    server.close(() => {
+      logger.info("Server closed");
+      mongoose.connection.close(false).then(() => {
+        logger.info("MongoDB connection closed");
+      });
+    });
+  }
+});
+
+process.on("SIGINT", () => {
+  logger.info("SIGINT received");
+  if (server) {
+    server.close(() => {
+      logger.info("Server closed");
+      mongoose.connection.close(false).then(() => {
+        logger.info("MongoDB connection closed");
+        process.exit(0);
+      });
+    });
+  } else {
+    process.exit(0);
   }
 });
